@@ -1,0 +1,48 @@
+AddDefaultCharset utf-8
+
+php_value error_reporting "E_ALL & ~E_NOTICE"
+
+php_value display_errors On
+php_value log_errors On
+php_value error_log base_err.log
+
+<Files "*.cache">
+Deny from all
+</Files>
+
+<Files "core/db.php">
+Deny from all
+</Files>
+
+
+RewriteEngine on
+
+RewriteRule ^admin/([^/]+?).html?$ /admin.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?).html?$ /admin.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?)/([^/]+?).html?$ /admin.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?).html?$ /admin.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
+
+RewriteRule ^api/([^/]+?).html?$ /api.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?).html?$ /api.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?)/([^/]+?).html?$ /api.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?).html?$ /api.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
+
+RewriteRule ^([^/]+?).html?$ /index.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?).html?$ /index.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?)/([^/]+?).html?$ /index.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?).html?$ /index.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
+
+RewriteRule ^admin/([^/]+?)/?$ /admin.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?)/?$ /admin.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?)/([^/]+?)/?$ /admin.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^admin/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?)/?$ /admin.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
+
+RewriteRule ^api/([^/]+?)/?$ /api.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?)/?$ /api.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?)/([^/]+?)/?$ /api.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^api/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?)/?$ /api.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
+
+RewriteRule ^([^/]+?)/$ /index.php?act=$1&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?)/$ /index.php?act=$1&type=$2&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?)/([^/]+?)/$ /index.php?act=$1&type=$2&idobj=$3&%{QUERY_STRING} [L]
+RewriteRule ^([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?)/$ /index.php?act=$1&type=$2&var=$3&idobj=$4&%{QUERY_STRING} [L]
