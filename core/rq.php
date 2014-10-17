@@ -45,9 +45,10 @@ class c_rq{
 	 * @param  $key имя ключа удаленного запроса
 	 * @param string $type шаблон
 	 * @param null $data если это не удаленный запрос, то обработывается черз данную строку
-	 * @return string обработанная переменная
+     * @param bool $encode
+     * @return string обработанная переменная
 	 */
-	function get($key,$type='',&$data=null,$encode=false){
+    function get($key,$type='',&$data=null,$encode=false){
         if(is_string($key)){$keyType='string'; $key=array($key);}
         elseif(is_array($key)){$keyType='array';}
 		elseif($data) $key=array('0');
@@ -114,9 +115,10 @@ class c_rq{
 	 * @param bool $required_msg префикс ошибки<ul>
 	 * <li>указан - при отсутсвии перменной прекращает обработку пременных - возвращает [префикс][название ключа]
 	 * @param bool $empty обрабатывать пустые значение или нет
-	 * @return bool|string ошибку или false
+     * @param bool $encode
+     * @return bool|string ошибку или false
 	 */
-	function getR(&$array,$fields=array(),$required_msg=false,$empty=false,$encode=false){
+    function getR(&$array,$fields=array(),$required_msg=false,$empty=false,$encode=false){
 		foreach($fields as $v){
 			$expl=explode('|',$v);
 			if(count($expl)==2){
@@ -125,7 +127,8 @@ class c_rq{
 			}elseif(count($expl)==3){
 				list($fieldTmp,$requestTmp,$expTmp)=$expl;					
 			}else return false;
-			$rezTmp=$this->get($requestTmp,$expTmp,false,$encode);
+            $data=null;
+			$rezTmp=$this->get($requestTmp,$expTmp,$data,$encode);
 			if((!$rezTmp&&$rezTmp!=='0')&&$required_msg) return $required_msg.'_'.$requestTmp;
 			elseif($rezTmp||$empty)$array[$fieldTmp]=$rezTmp;
 		}

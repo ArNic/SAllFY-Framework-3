@@ -734,7 +734,7 @@ class c_db{
 			global $c_tools;
 			$td=mcrypt_module_open('rijndael-256','','ofb','');
 			if(!$iv)$iv=$c_tools->genPass(mcrypt_enc_get_iv_size($td),1,1,1);
-			$hash='='-----------------';';
+			$hash='=-----------------;';
 			mcrypt_generic_init($td,$hash,$iv);
 			$str=mcrypt_generic($td,$str);
 			mcrypt_generic_deinit($td);

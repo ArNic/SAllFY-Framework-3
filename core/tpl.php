@@ -24,6 +24,7 @@
          */
         var $design;
         var $cache=false; # boolean кэш всей страницы
+        var $hidden=false; # прятать результат
         static function install(){
             global $c_db;
             $tbl='cache';
@@ -77,6 +78,7 @@
             if(!$cachedPage||$cachedPage->status!=='good'){register_shutdown_function(array($this,'dprint'));}
         }
         function dprint(){
+            if(!$this->hidden){
             $cache=$this->cache;
             if($cache){ob_start();}
             if($this->makeseo){$this->seo();}
@@ -87,6 +89,8 @@
                 $this->cacheMake($rez,$cache->node,$cache->get,$cache->nokey,$cache->right,$cache->uid);
                 print $rez;
             }
+            }
+
             //        print $this->makeConsole();
         }
         function makeFramework(){
